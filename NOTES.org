@@ -1,0 +1,25 @@
+
+* egl config
+  https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglChooseConfig.xhtml
+
+** EGL_RENDERABLE_TYPE / EGL_CONFORMANT
+   Must be followed by a bitmask indicating which types of client API contexts created with respect to the frame buffer configuration config must pass the required conformance tests for that API. Mask bits include:
+
+   EGL_OPENGL_BIT
+   Config supports creating OpenGL contexts.
+
+   EGL_OPENGL_ES_BIT
+   Config supports creating OpenGL ES 1.0 and/or 1.1 contexts.
+
+   EGL_OPENGL_ES2_BIT
+   Config supports creating OpenGL ES 2.0 contexts.
+
+   EGL_OPENVG_BIT
+   Config supports creating OpenVG contexts.
+
+   For example, if the bitmask is set to EGL_OPENGL_ES_BIT, only frame buffer configurations that support creating conformant OpenGL ES contexts will match. The default value is zero.
+
+   Most EGLConfigs should be conformant for all supported client APIs, and it is rarely desirable to select a nonconformant config. Conformance requirements limit the number of non-conformant configs that an implementation can define.
+
+* OpenGL ES 
+  https://en.wikipedia.org/wiki/OpenGL_ES
