@@ -1,5 +1,5 @@
 #!/bin/bash
-../build/egl/test02 | \
+./build/main | \
     ffmpeg \
         -f rawvideo \
         -pix_fmt rgb32 \
@@ -9,5 +9,5 @@
         -threads 8 \
         -c:v libx264 \
         -y \
-        ../test02.mp4
-ffplay ../test02.mp4
+        /tmp/video.mp4
+ffplay /tmp/video.mp4

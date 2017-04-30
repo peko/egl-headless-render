@@ -1,9 +1,9 @@
 #!/bin/bash
-./main | \
+./build/main | \
     ffmpeg \
         -f rawvideo \
         -pix_fmt rgb32 \
-        -s:v 854x480\
+        -s:v 854x480 \
         -r 60 \
         -i - \
         -threads 8 \
