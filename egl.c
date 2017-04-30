@@ -109,7 +109,7 @@ static void print_err(GLint err_id) {
 #define ERR(res, cmd, ...) {                    \
         res = cmd(__VA_ARGS__);                 \
         EGLint err_id = eglGetError();          \
-        if(err_id != EGL_SUCCESS) return -1;    \
+        if(err_id != EGL_SUCCESS) exit(-1);    \
 }
 #endif
 
