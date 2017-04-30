@@ -70,7 +70,7 @@ static void egl_print_available_configs() {
     }
 }
 
-#define ERR_CASE(err_id, text) case err_id : fprintf(stderr, "%s\n%s\n", #err_id, text); break;
+#define ERR_CASE(err_id, text) case err_id : fprintf(stderr, "%s\n%s\n", KRED #err_id KRST, text); break;
 static void print_err(GLint err_id) {
     switch(err_id) {
         ERR_CASE(EGL_SUCCESS            , "The last function succeeded without error.")
@@ -100,7 +100,7 @@ static void print_err(GLint err_id) {
     fprintf(stderr, #cmd" - ");            \
     if(err_id != EGL_SUCCESS) {            \
         print_err(err_id);                 \
-        return -1;                         \
+        exit(-1);                          \
     } else {                               \
         fprintf(stderr, KGRN "OK\n" KRST); \
     }                                      \
