@@ -51,11 +51,11 @@ static void check_err();
 static void egl_print_available_configs() {
     EGLint ccnt, n;
     eglGetConfigs(display, NULL, 0, &ccnt);
-    fprintf(stdout, "EGL has %d configs total\n", ccnt);
+    fprintf(stderr, "EGL has %d configs total\n", ccnt);
     EGLConfig* configs = calloc(ccnt, sizeof *configs);
     eglChooseConfig(display, configAttribs, configs, ccnt, &n);
     for (int i = 0; i < n; i++) {
-        fprintf(stderr, "Config id: %d\n", configs[i]);
+        fprintf(stderr, "Config id: %u\n", configs[i]);
         EGLint val;
         ATTR(EGL_BUFFER_SIZE);
         ATTR(EGL_RED_SIZE);
@@ -145,7 +145,7 @@ int egl_init() {
     // 1. Initialize EGL
     ERR(display, eglGetDisplay, EGL_DEFAULT_DISPLAY);
     ERR(res, eglInitialize, display, &major, &minor);
-    printf("version %d.%d\n", major, minor);
+    fprintf(stderr, "version %d.%d\n", major, minor);
     egl_print_available_configs();
 
     // 2. Select an appropriate configuration
@@ -182,12 +182,13 @@ void egl_write_stream() {
     static int pos = 0;
     glReadPixels(0, 0, BUFFER_WIDTH, BUFFER_HEIGHT,
                  GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, pixels);
-
-    pixels[pos%BUFFER_WIDTH*4+0] = 255;
-    pixels[pos%BUFFER_WIDTH*4+1] = 255;
-    pixels[pos%BUFFER_WIDTH*4+2] = 255;
-    pixels[pos%BUFFER_WIDTH*4+3] = 255;
+    int p = pos % BUFFER_WIDTH * 4;
+    pixels[p+0] = 255;
+    pixels[p+1] = 255;
+    pixels[p+2] = 255;
+    pixels[p+3] = 255;
     pos++;
+
     fwrite(pixels, BUFFER_WIDTH*BUFFER_HEIGHT, 4, out);
 }
 
@@ -206,6 +207,6 @@ static void check_err() {
    if(err!=0x3000) {
        fprintf(stderr, "Error %h\n", err);
    } else {
-       printf("OK\n");
+       fprintf(stderr, "OK\n");
    }
 }
